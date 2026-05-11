@@ -1,0 +1,51 @@
+{
+  "objectives": [
+    {
+      "id": "jy36sl",
+      "title": "Ship CUS OSS MVP",
+      "period": "Q2 2026",
+      "status": "active",
+      "createdAt": "2026-05-11T12:07:08.508Z",
+      "keyResults": [
+        {
+          "id": "bijfz5",
+          "title": "Endpoints sync fonctionnels",
+          "target": 4,
+          "current": 0,
+          "unit": "endpoints"
+        },
+        {
+          "id": "k7d6wn",
+          "title": "CLI claude-sync commands",
+          "target": 4,
+          "current": 0,
+          "unit": "commands"
+        },
+        {
+          "id": "qsaiqt",
+          "title": "Tests e2e passants",
+          "target": 1,
+          "current": 0,
+          "unit": "implemented"
+        }
+      ]
+    },
+    {
+      "id": "i9muvt",
+      "title": "Stars GitHub",
+      "period": "Q2 2026",
+      "status": "active",
+      "createdAt": "2026-05-11T12:07:09.186Z",
+      "keyResults": []
+    },
+    {
+      "id": "vdjy6v",
+      "title": "Self-hosted users",
+      "period": "Q2 2026",
+      "status": "active",
+      "createdAt": "2026-05-11T12:07:09.306Z",
+      "keyResults": []
+    }
+  ],
+  "history": []
+}

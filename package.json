@@ -1,0 +1,41 @@
+{
+  "name": "claude-unified-server",
+  "version": "0.1.0-alpha.0",
+  "description": "Sync ~/.claude/ config (skills, agents, commands, memory) across devices via self-hosted server. OSS + future SaaS.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Sabry Parra",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SabryParra/claude-unified-server.git"
+  },
+  "bin": {
+    "claude-sync": "./src/cli/index.ts",
+    "cus-server": "./src/server/index.ts"
+  },
+  "scripts": {
+    "dev": "bun --hot src/server/index.ts",
+    "start": "bun src/server/index.ts",
+    "cli": "bun src/cli/index.ts",
+    "build": "bun build src/server/index.ts --target=bun --outfile=dist/server.js && bun build src/cli/index.ts --target=bun --outfile=dist/cli.js",
+    "test": "bun test",
+    "test:e2e": "bun test tests/e2e",
+    "lint": "biome check src tests",
+    "format": "biome format --write src tests",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.6.0",
+    "zod": "^3.23.0",
+    "@hono/zod-validator": "^0.4.0",
+    "jose": "^5.9.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "@types/bun": "latest",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "bun": ">=1.1.0"
+  }
+}

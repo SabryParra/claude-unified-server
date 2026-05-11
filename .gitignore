@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+bun.lockb
+
+# Build
+dist/
+build/
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# CUS data (user storage, never commit)
+data/
+
+# Logs
+*.log
+logs/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Claude Code
+.claude/settings.local.json
+.swarm/
+.claude/worktrees/
+.claude/cache/
+ruvector.db
+
+# Tests
+coverage/
+.nyc_output/
+
+# Claude project templates (specific to dev environment, not OSS)
+.claude/
+.claude-flow/
+.mcp.json
