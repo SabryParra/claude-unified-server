@@ -1,0 +1,3 @@
+[test]
+# Isolate test data from real data
+env = { CUS_DATA_DIR = "./test-data", JWT_SECRET = "test-secret-for-unit-tests-only-32chars" }

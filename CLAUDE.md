@@ -69,13 +69,13 @@ CUS Server (Bun + Hono)
 ## ROADMAP
 
 ### Phase 1 — OSS MVP (semaines 1-2)
-- [ ] Bun + Hono skeleton
-- [ ] JWT auth flow
-- [ ] Endpoints sync : skills/agents/commands/memory
-- [ ] CLI claude-sync (init/pull/push/status)
-- [ ] Hooks intégration (SessionStart/Stop)
-- [ ] Tests unitaires + e2e auth
-- [ ] README + getting started
+- [x] Bun + Hono skeleton
+- [x] JWT auth flow
+- [x] Endpoints sync : skills/agents/commands/memory
+- [x] CLI claude-sync (init/pull/push/status/run)
+- [x] Hooks intégration (SessionStart/Stop via `claude-sync hooks install`)
+- [x] Tests unitaires + e2e auth
+- [x] README + getting started
 - [ ] Release v0.1.0 GitHub
 
 ### Phase 2 — Cloud SaaS (mois 2-3)
