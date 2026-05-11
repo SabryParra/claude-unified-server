@@ -16,7 +16,7 @@
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { join, basename } from 'node:path';
 import { existsSync } from 'node:fs';
-import { homedir } from 'node:os';
+import { homedir, hostname } from 'node:os';
 import { stripSecrets } from '../lib/secrets.ts';
 
 const HOME = homedir();
@@ -70,7 +70,7 @@ async function cmdInit(args: string[]) {
     console.error('Missing server URL');
     process.exit(1);
   }
-  const deviceName = `${process.env.USER ?? 'unknown'}@${require('node:os').hostname()}`;
+  const deviceName = `${process.env.USER ?? 'unknown'}@${hostname()}`;
 
   const res = await fetch(`${server}/api/v1/auth/device`, {
     method: 'POST',
@@ -317,14 +317,14 @@ async function hooksInstall() {
   };
 
   // Remove any existing CUS hooks before re-adding
-  for (const event of ['SessionStart', 'Stop']) {
+  for (const event of ['SessionStart', 'Stop'] as const) {
     settings.hooks[event] = (settings.hooks[event] ?? []).filter(
       (h) => h._cus !== CUS_HOOK_MARKER,
     );
   }
 
-  settings.hooks['SessionStart'].push(pullHook);
-  settings.hooks['Stop'].push(pushHook);
+  (settings.hooks['SessionStart'] ??= []).push(pullHook);
+  (settings.hooks['Stop'] ??= []).push(pushHook);
 
   await writeSettings(settings);
   console.log(`✅ Hooks installed in ${SETTINGS_FILE}`);

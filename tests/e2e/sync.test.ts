@@ -128,7 +128,7 @@ describe('GET /api/v1/sync/manifest', () => {
     const body = (await res.json()) as Record<string, unknown>;
     const manifest = body['manifest'] as Record<string, unknown[]>;
     expect(Array.isArray(manifest['skills'])).toBe(true);
-    expect(manifest['skills'].length).toBeGreaterThan(0);
+    expect((manifest['skills'] ?? []).length).toBeGreaterThan(0);
   });
 });
 

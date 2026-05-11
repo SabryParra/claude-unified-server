@@ -28,11 +28,6 @@ const nameSchema = z
 
 syncRoutes.get('/manifest', async (c) => {
   const userId = c.get('userId');
-  const manifest: Record<string, ReturnType<typeof listResources>> = {} as never;
-  for (const kind of KINDS) {
-    // @ts-expect-error — assigning promise then awaiting below
-    manifest[kind] = listResources(userId, kind);
-  }
   const resolved: Record<string, unknown> = {};
   for (const kind of KINDS) {
     resolved[kind] = await listResources(userId, kind);
@@ -100,6 +95,7 @@ syncRoutes.delete('/:kind/:name', requireScope('write'), async (c) => {
   const name = c.req.param('name');
 
   if (!KINDS.includes(kind)) return c.json({ error: 'unknown_kind', kind }, 400);
+  if (!name) return c.json({ error: 'missing_name' }, 400);
 
   const filePath = resourcePath(userId, kind, name);
   const ok = await deleteResource(filePath);
