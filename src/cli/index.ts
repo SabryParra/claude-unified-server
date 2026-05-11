@@ -154,6 +154,52 @@ async function cmdStatus() {
   console.log(`Expires : ${claims.expiresAt}`);
 }
 
+// ── run (server) ────────────────────────────────────────────────
+
+async function cmdRun(args: string[]) {
+  const portIdx = args.indexOf('--port');
+  const hostIdx = args.indexOf('--host');
+  const dataIdx = args.indexOf('--data');
+
+  const port = portIdx !== -1 ? args[portIdx + 1] : undefined;
+  const host = hostIdx !== -1 ? args[hostIdx + 1] : undefined;
+  const data = dataIdx !== -1 ? args[dataIdx + 1] : undefined;
+
+  if (port) {
+    const n = Number(port);
+    if (Number.isNaN(n) || n < 1 || n > 65535) {
+      console.error(`Invalid port: ${port}`);
+      process.exit(1);
+    }
+    process.env.PORT = port;
+  }
+  if (host) process.env.HOST = host;
+  if (data) process.env.CUS_DATA_DIR = data;
+
+  const { createApp } = await import('../server/app.ts');
+  const { ensureDataDir } = await import('../lib/storage.ts');
+
+  await ensureDataDir();
+
+  const app = createApp();
+  const resolvedPort = Number(process.env.PORT ?? 3017);
+  const resolvedHost = process.env.HOST ?? '0.0.0.0';
+
+  console.log(`╔══════════════════════════════════════════════╗`);
+  console.log(`  CUS — Claude Unified Server v0.1.0-alpha    `);
+  console.log(`  http://${resolvedHost}:${resolvedPort}      `);
+  console.log(`╚══════════════════════════════════════════════╝`);
+
+  Bun.serve({
+    port: resolvedPort,
+    hostname: resolvedHost,
+    fetch: app.fetch,
+  });
+
+  // Keep the process alive
+  await new Promise<never>(() => {});
+}
+
 // ── main ────────────────────────────────────────────────────────
 
 const [, , cmd, ...rest] = process.argv;
@@ -172,13 +218,18 @@ switch (cmd) {
   case 'whoami':
     await cmdStatus();
     break;
+  case 'run':
+    await cmdRun(rest);
+    break;
   default:
     console.log(`Usage: claude-sync <command>
 
-  init --server <url>   Initialize device on CUS server
-  pull                  Pull all resources from server → local
-  push                  Push local → server (filters secrets) [TODO]
-  status                Show device info + token expiry
+  init --server <url>         Initialize device on CUS server
+  pull                        Pull all resources from server → local
+  push                        Push local → server (filters secrets) [TODO]
+  status                      Show device info + token expiry
+  run [--port N] [--host H]   Start the CUS server locally
+      [--data <dir>]
 
   config: ${CONFIG_FILE}
 `);
