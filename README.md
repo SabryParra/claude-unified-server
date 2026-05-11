@@ -42,9 +42,6 @@ Device ──→  claude-sync CLI  ──→  CUS Server  ──→  filesystem
 - [ ] Auto-sync via SessionStart/Stop hooks
 - [ ] E2E encryption (optional)
 
-## Phase 2 (planned cloud)
-
-Managed at `https://claudeunified.com` — 10€/mo solo, 30€/mo team.
 
 ## License
 
