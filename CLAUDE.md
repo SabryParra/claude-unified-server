@@ -14,7 +14,7 @@
 **Audience :** Power users Claude Code (community) + futurs clients SaaS
 **URL :** github.com/SabryParra/claude-unified-server (à créer)
 **License :** MIT
-**task_manager:** multica
+**task_manager:** multica (projet 9e574919-f931-4f73-998e-4e610ddf8fd9)
 
 ---
 
